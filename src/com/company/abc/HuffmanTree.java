@@ -19,11 +19,12 @@ public class HuffmanTree {
         root = buildHuffmanTree(frequencyTable);
     }
 
-    public void buildCodeTableFromHuffmanTree(HuffmanTree huffmanTree, HashMap<Integer, String> codes) {
+    public void buildCodeTableFromHuffmanTree( HashMap<Integer, String> codes) {
         assignCode(root,codes);
     }
 
     private static void assignCode(Node root, HashMap<Integer, String> codeTable) {
+
         if (root.left != null) {
             root.left.code = root.code + String.valueOf(0);
             assignCode(root.left, codeTable);
@@ -45,7 +46,8 @@ public class HuffmanTree {
        while(priorityQueue.getSize()>1){
            Node left = priorityQueue.removeMin();
            Node right = priorityQueue.removeMin();
-           Node parent = new Node(left, right, left.freq + right.freq, -1);
+//           System.out.println("combining freqs :" + left.freq + "," + right.freq);
+           Node parent = new Node(left, right, left.freq + right.freq, -111111);
            priorityQueue.add(parent);
        }
         return priorityQueue.removeMin();

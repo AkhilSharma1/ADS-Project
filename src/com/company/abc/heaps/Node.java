@@ -2,11 +2,14 @@ package com.company.abc.heaps;
 
 /**
  * Created by hfire on 3/30/17.
+ * left and right variables are only used the HuffmanTree and not by any of the Priority Queues.
  */
 public class Node implements Comparable<Node>{
 
     public Node left;
     public Node right;
+
+
     public int freq;
     public int elem;//only for leaf nodes
     public String code = "";
@@ -27,14 +30,14 @@ public class Node implements Comparable<Node>{
 
     @Override
     public int compareTo(Node node) {
-        int nodeFreq = node.freq;
+        int thatFreq = node.freq;
 
-        if (nodeFreq ==freq)
+        if (thatFreq ==freq)
             return 0;
-        else if (nodeFreq>freq)
-            return 1;
-        else
+        else if (thatFreq>freq) //this<that, return -1
             return -1;
+        else
+            return 1; //this>that, return 1
     }
 
 }

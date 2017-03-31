@@ -37,8 +37,8 @@ public class PairingHeap implements PriorityQueue {
 
 
     @Override
-    public void add(Object x) {
-       PairingHeapNode newNode = (PairingHeapNode)x;
+    public void add(Node x) {
+       PairingHeapNode newNode = new PairingHeapNode(x);
         if( root == null )
             root = newNode;
         else
@@ -155,29 +155,15 @@ public class PairingHeap implements PriorityQueue {
         return array;
     }
 
-    public  class PairingHeapNode implements Comparable<PairingHeapNode> {
+    public  class PairingHeapNode extends Node {
 
-        public int elem;
         public PairingHeapNode   leftChild;
         public PairingHeapNode   nextSibling;
         public PairingHeapNode   prev;
-        public int freq;
 
-        public PairingHeapNode( int elem, int freq) {
-            this.elem = elem;
-            this.freq = freq;
-        }
-
-        @Override
-        public int compareTo(PairingHeapNode node) {
-            int nodeFreq = node.freq;
-
-            if (nodeFreq ==freq)
-                return 0;
-            else if (freq < nodeFreq)
-                return 1;
-            else
-                return -1;
+        public PairingHeapNode( Node x) {
+            super(x.left, x.right, x.freq, x.elem);
         }
     }
+
 }

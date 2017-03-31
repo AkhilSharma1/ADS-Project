@@ -27,7 +27,7 @@ public class BinaryHeap implements PriorityQueue {
         // place element into heap at bottom
         size++;
         int index = size;
-        array[index] = newNode;
+        array[index] = (Node) newNode;
 
         bubbleUp();
     }

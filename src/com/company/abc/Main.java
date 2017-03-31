@@ -16,30 +16,38 @@ public class Main {
     public static void main(String[] args) {
 
         List<String> inputData = FileUtils.readInputFile(args[0]);
-        System.out.println("Input is ===================");
+        System.out.println("Input is :");
         System.out.println(inputData);
         frequencyTable = CoreUtils.generateFreqTableFromInput(inputData);
-        System.out.println("frequencyTable is ==================");
+        System.out.println("frequencyTable is:");
 
         System.out.printf(frequencyTable+"\n");
 
         //PQ_ENUM fastestPQ = comparePriorityQueues(frequencyTable);
+//        PQ_ENUM fastestPQ = PQ_ENUM.PAIRING_HEAP;
         PQ_ENUM fastestPQ = PQ_ENUM.BINARY_HEAP;
 
         HuffmanTree huffmanTree = new HuffmanTree(fastestPQ, frequencyTable);
-
-        //build code Table
+      //build code Table
         HashMap<Integer, String> codeTable = new HashMap<>();
-        huffmanTree.buildCodeTableFromHuffmanTree(huffmanTree, codeTable);
+        huffmanTree.buildCodeTableFromHuffmanTree( codeTable);
         System.out.printf("");
-        System.out.println("codeTable is ==================");
+        System.out.println("BINARY HEAP code table:==================");
         System.out.println(codeTable);
 
+
+        System.out.println("PAIRING HEAP code table: ==================");
+        HuffmanTree huffmanTree1 = new HuffmanTree(PQ_ENUM.PAIRING_HEAP, frequencyTable);
+
+        //build code Table
+        HashMap<Integer, String> codeTable1 = new HashMap<>();
+        huffmanTree1.buildCodeTableFromHuffmanTree(codeTable1);
+        System.out.printf("");
+        System.out.println(codeTable1);
+
+
+
     }
-
-
-
-
 
     public static PQ_ENUM comparePriorityQueues(Map<Integer, Integer> frequencyTable) {
 

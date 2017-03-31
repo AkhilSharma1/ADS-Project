@@ -21,7 +21,7 @@ public class Encoder {
 
         HuffmanTree huffmanTree = new HuffmanTree(FASTEST_PRIORITY_QUEUE, frequencyTable);
         HashMap<Integer, String> codeTable = new HashMap<>();
-        huffmanTree.buildCodeTableFromHuffmanTree(huffmanTree, codeTable);
+        huffmanTree.buildCodeTableFromHuffmanTree(codeTable);
 
         byte[] encodedData =  CoreUtils.encodeData(inputData,codeTable);
         FileUtils.outputEncodedDataToFile(encodedData);
