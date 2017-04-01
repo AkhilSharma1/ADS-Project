@@ -20,7 +20,8 @@ public class FileUtils {
 
         List<String> list = new ArrayList<>();
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/data/sample_input_large.txt"))) {
+//        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/data/sample_input_large.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
             list = br.lines().
                     filter(line->line.length()>0)
                     .collect(Collectors.toList());
@@ -32,12 +33,9 @@ public class FileUtils {
         return list;
     }
 
-
-
-
-    public static void outputCodeTableToFile(HashMap<Integer, String> codeTable) {
+    public static void outputCodeTableToFile(HashMap<Integer, String> codeTable, String codeTableFile) {
         //Get the file reference
-        Path path = Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/code_table.txt");
+        Path path = Paths.get(codeTableFile);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path))
         {

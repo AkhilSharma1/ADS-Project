@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Encoder {
     public static final PQ_ENUM FASTEST_PRIORITY_QUEUE = PQ_ENUM.BINARY_HEAP;
+    public static final String CODE_TABLE_FILE = "code_table.txt";
 
     public static void main(String[] args) {
         long startTime, endTime, timeTaken;
@@ -27,7 +28,7 @@ public class Encoder {
 
         String encodedData =  CoreUtils.encodeData(inputData,codeTable);
         FileUtils.outputEncodedDataToFile(encodedData);
-        FileUtils.outputCodeTableToFile(codeTable);
+        FileUtils.outputCodeTableToFile(codeTable, CODE_TABLE_FILE);
         endTime = System.currentTimeMillis();
         timeTaken = endTime - startTime;
         System.out.println("encoding finished!!!, time taken in sec :" + TimeUnit.MILLISECONDS.toSeconds(timeTaken));
