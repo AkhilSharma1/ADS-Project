@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Encoder {
     public static final PQ_ENUM FASTEST_PRIORITY_QUEUE = PQ_ENUM.BINARY_HEAP;
     public static final String CODE_TABLE_FILE = "code_table.txt";
+    public static final String ENCODED_FILE = "encoded.bin";
 
     public static void main(String[] args) {
         if (args.length!=1)
@@ -31,7 +32,7 @@ public class Encoder {
         huffmanTree.buildCodeTableFromHuffmanTree(codeTable);
 
         String encodedData =  CoreUtils.encodeData(inputData,codeTable);
-        FileUtils.outputEncodedDataToFile(encodedData);
+        FileUtils.outputEncodedDataToFile(encodedData, ENCODED_FILE);
         FileUtils.outputCodeTableToFile(codeTable, CODE_TABLE_FILE);
         endTime = System.currentTimeMillis();
         timeTaken = endTime - startTime;

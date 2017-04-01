@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Created by hfire on 3/31/17.
  */
 public class Decoder {
+    public static final String DECODED_TEXT_FILE = "decoded.txt";
 
     public static void main(String[] args) {
 
@@ -19,14 +20,14 @@ public class Decoder {
         long startTime, endTime, timeTaken;
         startTime = System.currentTimeMillis();
 
-        HashMap<Integer, String> codeTable = FileUtils.readCodeTableFromFile(args[0]);
-        String encodedMessage = FileUtils.readEncodedDataFromFile(args[1]);
+        HashMap<Integer, String> codeTable = FileUtils.readCodeTableFromFile(args[1]);
+        String encodedMessage = FileUtils.readEncodedDataFromFile(args[0]);
      /*   System.out.println("encoded message is:" + encodedMessage);
         System.out.println("code table is:" + codeTable);*/
         DecoderTree decoderTree = new DecoderTree(codeTable);
 
         ArrayList<String> decodedMessage = decoderTree.decodeMessage(encodedMessage);
-        FileUtils.outputDecodedMessageToFile(decodedMessage);
+        FileUtils.outputDecodedMessageToFile(decodedMessage, DECODED_TEXT_FILE);
 
         endTime = System.currentTimeMillis();
         timeTaken = endTime - startTime;

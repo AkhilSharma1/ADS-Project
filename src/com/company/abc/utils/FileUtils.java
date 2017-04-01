@@ -55,7 +55,7 @@ public class FileUtils {
     public static HashMap<Integer, String> readCodeTableFromFile(String fileName) {
         List<String> list = new ArrayList<>();
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/code_table.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
             list = br.lines().
                     filter(line->line.length()>0)
                     .collect(Collectors.toList());
@@ -101,7 +101,7 @@ public class FileUtils {
     return encodedDataString.toString();
     }
 
-    public static void outputEncodedDataToFile(String encodedDataString) {
+    public static void outputEncodedDataToFile(String encodedDataString, String fileName) {
 
         StringBuilder encodedDataStringBuilder = new StringBuilder(encodedDataString);
         while (encodedDataStringBuilder.length() % 8 != 0) {
@@ -111,7 +111,7 @@ public class FileUtils {
         encodedDataString = encodedDataStringBuilder.toString();
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(new File("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin"));
+            fos = new FileOutputStream(new File(fileName));
             for (int i = 0; i < encodedDataString.length(); i += 8) {
                 String byteString = encodedDataString.substring(i, i + 8); // grab a byte
                 int parsedByte = 0xFF & Integer.parseInt(byteString, 2);
@@ -125,9 +125,9 @@ public class FileUtils {
         }
     }
 
-    public static void outputDecodedMessageToFile(ArrayList<String> decodedMessage) {
+    public static void outputDecodedMessageToFile(ArrayList<String> decodedMessage, String decodedTextFile) {
         //Get the file reference
-        Path path = Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/decoded.txt");
+        Path path = Paths.get(decodedTextFile);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path))
         {
