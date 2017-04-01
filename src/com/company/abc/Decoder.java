@@ -13,8 +13,8 @@ public class Decoder {
 
     public static void main(String[] args) {
 
-        if (args.length<2)
-            throw new IllegalArgumentException("Decoder should have at least two input arguments");
+        if (args.length!=2)
+            throw new IllegalArgumentException("Decoder should have exactly two input arguments");
 
         long startTime, endTime, timeTaken;
         startTime = System.currentTimeMillis();

@@ -17,8 +17,8 @@ public class Encoder {
     public static final String CODE_TABLE_FILE = "code_table.txt";
 
     public static void main(String[] args) {
-        if (args.length<2)
-            throw new IllegalArgumentException("Encoder should have at least one input argument");
+        if (args.length!=1)
+            throw new IllegalArgumentException("Encoder should have only one input argument");
 
 
         long startTime, endTime, timeTaken;
