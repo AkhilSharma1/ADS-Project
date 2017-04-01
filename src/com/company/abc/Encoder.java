@@ -17,6 +17,10 @@ public class Encoder {
     public static final String CODE_TABLE_FILE = "code_table.txt";
 
     public static void main(String[] args) {
+        if (args.length<2)
+            throw new IllegalArgumentException("Encoder should have at least one input argument");
+
+
         long startTime, endTime, timeTaken;
         startTime = System.currentTimeMillis();
         List<String> inputData = FileUtils.readInputFile(args[0]);
