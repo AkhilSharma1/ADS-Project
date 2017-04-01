@@ -45,8 +45,7 @@ public class FourWayHeap implements PriorityQueue {
         return min;
     }
 
-    // heapDown() method, this method compares the replacement element with the max of children,
-    // if the largest child is larger than this replacement element, we move the child up, we continue doing this until heap order is correct and put the replacement element in correct index.
+
     public void heapDown(int ix) {
         int minChild = findMin(ix*numWays+1,ix*numWays+numWays);
        Node tempRoot = array[ix];       // save root in temp variable

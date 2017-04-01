@@ -20,7 +20,6 @@ public class FileUtils {
 
         List<String> list = new ArrayList<>();
 
-//        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/data/sample_input_large.txt"))) {
         try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
             list = br.lines().
                     filter(line->line.length()>0)
@@ -79,7 +78,7 @@ public class FileUtils {
 
     public static String readEncodedDataFromFile(String fileName) {
         StringBuilder encodedDataString = new StringBuilder();
-        Path path = Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin");
+        Path path = Paths.get(fileName);
         try {
             byte[] bytes = Files.readAllBytes(path);
             for (byte b : bytes) {
