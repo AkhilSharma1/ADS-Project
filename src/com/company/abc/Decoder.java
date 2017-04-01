@@ -4,6 +4,7 @@ import com.company.abc.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hfire on 3/31/17.
@@ -15,22 +16,22 @@ public class Decoder {
         if (args.length<2)
             throw new IllegalArgumentException("Decoder should have at least two input arguments");
 
-        HashMap<Integer, String> codeTable = FileUtils.readCodeTableFromFile(args[0]);
-        byte[] encodedMessage = FileUtils.readEncodedDataFromFile(args[1]);
+        long startTime, endTime, timeTaken;
+        startTime = System.currentTimeMillis();
 
-        HuffmanTree huffmanTree = creadeDecodeTree(codeTable);
-        ArrayList<String> decodedMessage = decodeMessage(encodedMessage, huffmanTree);
+        HashMap<Integer, String> codeTable = FileUtils.readCodeTableFromFile(args[0]);
+        String encodedMessage = FileUtils.readEncodedDataFromFile(args[1]);
+     /*   System.out.println("encoded message is:" + encodedMessage);
+        System.out.println("code table is:" + codeTable);*/
+        DecoderTree decoderTree = new DecoderTree(codeTable);
+
+        ArrayList<String> decodedMessage = decoderTree.decodeMessage(encodedMessage);
         FileUtils.outputDecodedMessageToFile(decodedMessage);
 
+        endTime = System.currentTimeMillis();
+        timeTaken = endTime - startTime;
+        System.out.println("decoding finished!!!, time taken in sec :" + TimeUnit.MILLISECONDS.toSeconds(timeTaken));
 
-    }
-
-    private static ArrayList<String> decodeMessage(byte[] encodedMessage, HuffmanTree huffmanTree) {
-        return null;
-    }
-
-    private static HuffmanTree creadeDecodeTree(HashMap<Integer, String> codeTable) {
-        return null;
     }
 
 

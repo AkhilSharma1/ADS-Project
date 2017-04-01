@@ -1,5 +1,6 @@
 package com.company.abc.utils;
 
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +20,7 @@ public class FileUtils {
 
         List<String> list = new ArrayList<>();
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/data/sample_input_small.txt"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/data/sample_input_large.txt"))) {
             list = br.lines().
                     filter(line->line.length()>0)
                     .collect(Collectors.toList());
@@ -32,31 +33,7 @@ public class FileUtils {
     }
 
 
-    public static void outputEncodedDataToFile(byte[] encodedData) {
-        /*String path = new File("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin").getPath();
-        FileOutputStream stream = null;
-        try {
-            stream = new FileOutputStream(path);
-            stream.write(encodedData);
-        }catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                stream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
-        Path path = Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin");
 
-        try {
-            Files.write(path, encodedData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void outputCodeTableToFile(HashMap<Integer, String> codeTable) {
         //Get the file reference
@@ -96,19 +73,58 @@ public class FileUtils {
         HashMap<Integer, String> codeMap = new HashMap<>();
         list.forEach(line->{
             String[] split = line.split(" ");
-            codeMap.put(Integer.parseInt(split[0]), split[1]);
+            if (split.length>1)
+                codeMap.put(Integer.parseInt(split[0]), split[1]);
         });
         return codeMap;
     }
 
-    public static byte[] readEncodedDataFromFile(String fileName) {
+    public static String readEncodedDataFromFile(String fileName) {
+        StringBuilder encodedDataString = new StringBuilder();
         Path path = Paths.get("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin");
         try {
-            return Files.readAllBytes(path);
+            byte[] bytes = Files.readAllBytes(path);
+            for (byte b : bytes) {
+                int i = b;
+                if(i<0)
+                    i = 256+i;
+                String s = Integer.toBinaryString(i);
+                int diff = 8-s.length();
+               // System.out.println("diff is "+diff);
+                for(int l = 0; l<diff;l++)
+                    s="0"+s;
+               // System.out.println(i + ":" + s);
+                encodedDataString.append(s);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    return null;
+
+    return encodedDataString.toString();
+    }
+
+    public static void outputEncodedDataToFile(String encodedDataString) {
+
+        StringBuilder encodedDataStringBuilder = new StringBuilder(encodedDataString);
+        while (encodedDataStringBuilder.length() % 8 != 0) {
+            System.out.println("not in multiples of 8");
+            encodedDataStringBuilder.append("0"); // lets add some extra bits until we have full bytes
+        }
+        encodedDataString = encodedDataStringBuilder.toString();
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(new File("/home/hfire/Documents/CodeProjects/Java/ADSProject/src/com/company/abc/output/encoded.bin"));
+            for (int i = 0; i < encodedDataString.length(); i += 8) {
+                String byteString = encodedDataString.substring(i, i + 8); // grab a byte
+                int parsedByte = 0xFF & Integer.parseInt(byteString, 2);
+                //System.out.println(parsedByte + ":" + byteString);
+                fos.write(parsedByte); // write a byte
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void outputDecodedMessageToFile(ArrayList<String> decodedMessage) {

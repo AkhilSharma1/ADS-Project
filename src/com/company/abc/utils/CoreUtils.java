@@ -21,7 +21,7 @@ public class CoreUtils {
         return hashMap;
     }
 
-    public static byte[] encodeData(List<String> inputData, HashMap<Integer, String> codeTable) {
+    public static String encodeData(List<String> inputData, HashMap<Integer, String> codeTable) {
         StringBuilder encodedData = new StringBuilder();
 
         inputData.forEach(line->{
@@ -29,6 +29,6 @@ public class CoreUtils {
             encodedData.append(code);
         });
 
-        return encodedData.toString().getBytes();
+        return encodedData.toString();
     }
 }

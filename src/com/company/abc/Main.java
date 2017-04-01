@@ -64,7 +64,7 @@ public class Main {
         long startTime, endTime, timeTakenBH, timeTaken4WH, timeTakenPH;
 
         startTime = System.currentTimeMillis();
-        for(int i = 0; i<1; i++){
+        for(int i = 0; i<25; i++){
             new HuffmanTree(PQ_ENUM.BINARY_HEAP, frequencyTable);
         }
         endTime = System.currentTimeMillis();
@@ -73,7 +73,7 @@ public class Main {
 
 
         startTime = System.currentTimeMillis();
-        for(int i = 0; i<5; i++){
+        for(int i = 0; i<25; i++){
             new HuffmanTree(PQ_ENUM.FOUR_WAY_HEAP, frequencyTable);
         }
         endTime = System.currentTimeMillis();
@@ -82,7 +82,7 @@ public class Main {
 
 
         startTime = System.currentTimeMillis();
-        for(int i = 0; i<5; i++){
+        for(int i = 0; i<25; i++){
             new HuffmanTree(PQ_ENUM.PAIRING_HEAP, frequencyTable);
         }
         endTime = System.currentTimeMillis();

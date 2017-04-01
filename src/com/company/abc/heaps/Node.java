@@ -11,7 +11,7 @@ public class Node implements Comparable<Node>{
 
 
     public int freq;
-    public int elem;//only for leaf nodes
+    public int elem = -1;// value >=0 only for leaf nodes
     public String code = "";
 
     public Node(Node left, Node right, int freq, int elem){
@@ -22,6 +22,9 @@ public class Node implements Comparable<Node>{
         this.elem = elem;
     }
 
+    public Node(){
+
+    };
     public Node(Integer freq, Integer elem) {
 
         this.freq = freq;
