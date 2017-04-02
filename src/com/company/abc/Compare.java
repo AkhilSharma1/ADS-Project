@@ -8,6 +8,9 @@ import com.company.abc.utils.FileUtils;
 import java.util.List;
 import java.util.Map;
 
+import static com.company.abc.utils.CoreUtils.startTimer;
+import static com.company.abc.utils.CoreUtils.stopTimer;
+
 public class Compare {
     private static Map<Integer, Integer> frequencyTable;
     private static final int NUMBER_OF_ITER = 50;
@@ -16,49 +19,37 @@ public class Compare {
     public static void main(String[] args) {
 
         List<String> inputData = FileUtils.readInputFile(args[0]);
-//        System.out.println("Input is :");
-//        System.out.println(inputData);
-        frequencyTable = CoreUtils.generateFreqTableFromInput(inputData);
-//        System.out.println("frequencyTable is:");
 
-//        System.out.printf(frequencyTable+"\n");
+        frequencyTable = CoreUtils.generateFreqTableFromInput(inputData);
 
         PQ_ENUM fastestPQ = comparePriorityQueues(frequencyTable);
-        System.out.println("fastest Prioirity Queue is :" + fastestPQ);
+        System.out.println("fastest Priority Queue is :" + fastestPQ);
     }
 
     public static PQ_ENUM comparePriorityQueues(Map<Integer, Integer> frequencyTable) {
 
-        long startTime, endTime, timeTakenBH, timeTaken4WH, timeTakenPH;
+        long timeTaken4WH, timeTakenBH,timeTakenPH;
 
-        startTime = System.currentTimeMillis();
+        startTimer();
         for(int i = 0; i<NUMBER_OF_ITER; i++){
             new HuffmanTree(PQ_ENUM.FOUR_WAY_HEAP, frequencyTable);
         }
-        endTime = System.currentTimeMillis();
-        timeTaken4WH = endTime - startTime;
-        System.out.println("Time in ms taken 4WH: " + timeTaken4WH);
+        timeTaken4WH = stopTimer();
+        System.out.println("Time in sec taken 4WH: " + timeTaken4WH);
 
-
-
-        startTime = System.currentTimeMillis();
+        startTimer();
         for(int i = 0; i< NUMBER_OF_ITER; i++){
             new HuffmanTree(PQ_ENUM.BINARY_HEAP, frequencyTable);
         }
-        endTime = System.currentTimeMillis();
-        timeTakenBH = endTime - startTime;
-        System.out.println("Time in ms taken BH: " + timeTakenBH);
+        timeTakenBH = stopTimer();
+        System.out.println("Time in sec taken BH: " + timeTakenBH);
 
-
-
-
-        startTime = System.currentTimeMillis();
+        startTimer();
         for(int i = 0; i<NUMBER_OF_ITER; i++){
             new HuffmanTree(PQ_ENUM.PAIRING_HEAP, frequencyTable);
         }
-        endTime = System.currentTimeMillis();
-        timeTakenPH = endTime - startTime;
-        System.out.println("Time in ms taken PH: " + timeTakenPH);
+        timeTakenPH = stopTimer();
+        System.out.println("Time in sec taken PH: " + timeTakenPH);
 
 
         if(timeTakenBH<timeTaken4WH && timeTakenBH<timeTakenPH)
