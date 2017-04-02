@@ -100,30 +100,26 @@ public class FileUtils {
     return encodedDataString.toString();
     }
 
-    public static void outputEncodedDataToFile(String encodedDataString, String fileName) {
+    public static void outputEncodedDataToFile(String encodedText, String fileName) {
 
-        StringBuilder encodedDataStringBuilder = new StringBuilder(encodedDataString);
-        while (encodedDataStringBuilder.length() % 8 != 0) {
+        if (encodedText.length() % 8 != 0) {
             System.out.println("not in multiples of 8");
-            encodedDataStringBuilder.append("0"); // lets add some extra bits until we have full bytes
+            System.exit(1);
         }
-        encodedDataString = encodedDataStringBuilder.toString();
-        FileOutputStream fos = null;
+
+        byte[] barray = new byte[encodedText.length() / 8];
+        for (int i = 0; i < (encodedText.length() / 8); i++) {
+            barray[i] = (byte) Short.parseShort(encodedText.substring(8 * i, 8 * (i + 1)), 2);
+        }
+
+        Path path = Paths.get(fileName);
+
         try {
-            fos = new FileOutputStream(new File(fileName));
-            for (int i = 0; i < encodedDataString.length(); i += 8) {
-                String byteString = encodedDataString.substring(i, i + 8); // grab a byte
-                int parsedByte = 0xFF & Integer.parseInt(byteString, 2);
-                //System.out.println(parsedByte + ":" + byteString);
-                fos.write(parsedByte); // write a byte
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Files.write(path, barray);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
     public static void outputDecodedMessageToFile(ArrayList<String> decodedMessage, String decodedTextFile) {
         //Get the file reference
         Path path = Paths.get(decodedTextFile);

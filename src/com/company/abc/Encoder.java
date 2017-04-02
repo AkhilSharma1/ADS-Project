@@ -7,7 +7,6 @@ import com.company.abc.utils.FileUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hfire on 3/31/17.
@@ -21,9 +20,8 @@ public class Encoder {
         if (args.length!=1)
             throw new IllegalArgumentException("Encoder should have only one input argument");
 
+        CoreUtils.startTimer();
 
-        long startTime, endTime, timeTaken;
-        startTime = System.currentTimeMillis();
         List<String> inputData = FileUtils.readInputFile(args[0]);
         Map<Integer, Integer> frequencyTable = CoreUtils.generateFreqTableFromInput(inputData);
 
@@ -34,8 +32,8 @@ public class Encoder {
         String encodedData =  CoreUtils.encodeData(inputData,codeTable);
         FileUtils.outputEncodedDataToFile(encodedData, ENCODED_FILE);
         FileUtils.outputCodeTableToFile(codeTable, CODE_TABLE_FILE);
-        endTime = System.currentTimeMillis();
-        timeTaken = endTime - startTime;
-        System.out.println("encoding finished!!!, time taken in sec :" + TimeUnit.MILLISECONDS.toSeconds(timeTaken));
+
+        System.out.println("encoding finished!!! time taken(including File IO): "
+                + CoreUtils.stopTimer() + " sec");
     }
 }

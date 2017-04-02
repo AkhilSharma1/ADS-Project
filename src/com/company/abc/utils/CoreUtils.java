@@ -3,11 +3,14 @@ package com.company.abc.utils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hfire on 3/30/17.
  */
 public class CoreUtils {
+    static long startTime;
+
 
     public static Map<Integer, Integer> generateFreqTableFromInput(List<String> input) {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
@@ -30,5 +33,14 @@ public class CoreUtils {
         });
 
         return encodedData.toString();
+    }
+    public static final void startTimer(){
+        startTime = System.currentTimeMillis();
+    }
+    public static final long stopTimer(){
+        long endTime, timeTaken;
+        endTime = System.currentTimeMillis();
+        timeTaken = endTime - startTime;
+        return TimeUnit.MILLISECONDS.toSeconds(timeTaken);
     }
 }
