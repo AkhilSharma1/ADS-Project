@@ -28,10 +28,10 @@ public class Encoder {
         HuffmanTree huffmanTree = new HuffmanTree(FASTEST_PRIORITY_QUEUE, frequencyTable);
         HashMap<Integer, String> codeTable = new HashMap<>();
         huffmanTree.buildCodeTableFromHuffmanTree(codeTable);
-
+        FileUtils.outputCodeTableToFile(codeTable, CODE_TABLE_FILE);
         String encodedData =  CoreUtils.encodeData(inputData,codeTable);
         FileUtils.outputEncodedDataToFile(encodedData, ENCODED_FILE);
-        FileUtils.outputCodeTableToFile(codeTable, CODE_TABLE_FILE);
+
 
         System.out.println("encoding finished!!! time taken(including File IO): "
                 + CoreUtils.stopTimer() + " sec");

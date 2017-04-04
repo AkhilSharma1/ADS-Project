@@ -102,9 +102,10 @@ public class FileUtils {
 
     public static void outputEncodedDataToFile(String encodedText, String fileName) {
 
-        if (encodedText.length() % 8 != 0) {
-            System.out.println("not in multiples of 8");
-            System.exit(1);
+        StringBuilder encodedDataStringBuilder = new StringBuilder(encodedText);
+        while (encodedDataStringBuilder.length() % 8 != 0) {
+            encodedDataStringBuilder.append("0"); // lets add some extra bits until we have full bytes
+            encodedText =encodedDataStringBuilder.toString();
         }
 
         byte[] barray = new byte[encodedText.length() / 8];
